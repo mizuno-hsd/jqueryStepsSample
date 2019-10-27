@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>ウィザード サンプル</title>
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="styles/jquery.steps.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/normalize.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="scripts/jquery.steps.min.js"></script>
+</head>
+	<body>
+	    <script type="text/javascript" charset="UTF-8">
+
+            var dialogHeight = 600;
+            var dialogWidth = 800;
+
+            /** show modal window */
+            var showModal = () => {
+                $(function () {
+                    $("<div title='wizard'></div>").dialog({
+                        src: "wizard.html",
+                        modal: true,
+                        height: dialogHeight,
+                        width: dialogWidth,
+                        open: function () {
+                            $(this).load("wizard.html");
+                        },
+                        close: function () {
+                            $(this).remove();
+                        }
+                    });
+                });
+            };
+
+            /** initialize */
+            var initWizard = () => {
+                $("#wizard").steps({
+                    headerTag: "h1",
+                    bodyTag: "section",
+                    onFinished: function (event, currentIndex) {
+                        $(".ui-icon-closethick").click();
+                    }
+                });
+
+                setWizardContentSize();
+                $("#wizard").steps("setStep", 2);
+            };
+
+            /** wizard main content height */
+	        var setWizardContentSize = () => {
+		        var windowsHeight = $(".ui-dialog-content.ui-widget-content").height();
+		        var headerHeight = $(".steps.clearfix").height();
+		        var footerHeight = $(".actions.clearfix").height();
+		        var marginHeight = 25;
+		        var contentHeight = (windowsHeight - (headerHeight + footerHeight) - marginHeight);
+		        $(".wizard > .content").css("min-height",  contentHeight + "px");
+	        };
+
+            $.fn.steps.setStep = function (step) {
+                var currentIndex = $(this).steps("getCurrentIndex");
+                for(var i = 0; i < Math.abs(step - currentIndex); i++) {
+                    if(step > currentIndex) {
+                        $(this).steps("next");
+                    }
+                    else {
+                        $(this).steps("previous");
+                    }
+                }
+            };
+	    </script>
+        <input type="button" onclick="showModal()" value="ウィザード3ページ目を表示" />
+
+	</body>
+	
+
+
+</html>

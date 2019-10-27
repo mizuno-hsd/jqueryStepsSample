@@ -1,0 +1,27 @@
+﻿
+<script type="text/javascript" charset="UTF-8">
+    /** ready */
+	$().ready(function(){
+		initWizard();
+	});
+</script>
+
+
+<div id="wizard">
+    <h1>氏名入力</h1>
+	<section>
+        <p>氏名を入力してください</p>
+		<input type="text" />
+	</section>
+	<h1>住所入力</h1>
+	<section data-mode="async" data-url="Page2.html">
+	</section>
+	<h1>特技入力</h1>
+    <section>
+        <p>特技を入力してください(3つまで)</p>
+        <input type="text" />
+        <input type="text" />
+        <input type="text" />
+    </section>
+</div>
+	
